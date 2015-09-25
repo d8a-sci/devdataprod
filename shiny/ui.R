@@ -79,7 +79,7 @@ shinyUI(fluidPage(theme = "bootstrap.css",
                                         p("Changes in the filtering are reflected instantly in all tab panels"),
                                         h4("Source"),
                                         helpText(a("Click here to see the source on GitHub",
-                                                   href="http://nu.nl/",
+                                                   href="https://github.com/d8a-sci/devdataprod/tree/master/shiny",
                                                    target="_blank")
                                         )
                                 ),
