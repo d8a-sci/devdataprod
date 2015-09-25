@@ -1,0 +1,100 @@
+A fuel economy surveyor
+========================================================
+author: E.N.
+date: September 2015
+transition: fade
+width: 1200
+height: 800
+
+<div class="midcenter" style="margin-left:-100px; margin-top:-50px;">
+<img src="dashboard1.png" style="background-color:transparent; border:0px; box-shadow:none;"></img>
+</div>
+
+Idea
+========================================================
+type: mine
+Create a basic Shiny app on the ggplot2 mpg data set where
+the user can filter on:
+
+1. Transmission type (select at least 1)
+    + Manual
+    + Automatic
+1. Traffic type (select only 1)
+    + City traffic
+    + Highway travel
+    
+The total average fuel economy will be calculated.
+
+Example
+========================================================
+type: mine
+left: 25%
+
+<div>
+<img src="panel.png" style="background-color:transparent; border:0px; box-shadow: 3px 3px 5px 6px #ccc;"></img>
+</div>
+***
+
+```{r echo=FALSE}
+library(data.table, quietly = TRUE, warn.conflicts=FALSE)
+library(dplyr, quietly = TRUE, warn.conflicts=FALSE)
+library(ggplot2, quietly = TRUE, warn.conflicts=FALSE)
+library(ggthemes, quietly = TRUE, warn.conflicts=FALSE)
+
+dt      <- data.table(mpg)
+dt      <- dt %>% mutate( trans  = factor(gsub("(.*)\\(.*","\\1",trans)), grp=factor(paste0(manufacturer,model,displ,cyl,trans,drv)) ) %>% select(manufacturer:hwy,grp)
+```
+
+```{r}
+# library calls & preprocessing
+# omitted for brevity
+filter(dt, trans=="auto") %>% 
+        group_by(year)    %>%
+        summarise(mean(hwy))
+```
+
+      
+## But wait, there's more...
+
+A slope graph!
+========================================================
+type: mine
+left: 65%
+
+```{r, echo=FALSE}
+xvar <- 'year'
+yvar <- 'hwy'
+xs   <- as.numeric(levels(factor(dt$year)))
+                        
+g <- ggplot(dt)
+g <- g + eval(substitute(geom_line(aes(x=var1,y=var2, group=grp), alpha=0.6),list(var1 = as.name(xvar),var2 = as.name(yvar))))
+g <- g + eval(substitute(geom_point(aes(x=var1,y=var2),size=3,alpha=0.1),list(var1 = as.name(xvar),var2 = as.name(yvar))))
+g <- g + ggtitle("Fuel economy on highway travel\nwith any transmission")
+g <- g + xlab("\nYear") + ylab("Fuel economy in mpg\n")
+g <- g + theme_tufte(base_size=14) + scale_y_tufte()
+g <- g + scale_x_continuous(limits=xs, breaks=xs)
+g <- g + theme(plot.title=element_text(size=16, face="bold.italic"))
+g <- g + theme(axis.title=element_text(face="bold"))
+g
+```
+***
+
+The Shiny app has a tab panel 'Plot' with a slope graph that also updates based on the user's filtering.
+> <small>In the next version there will be no line crossings anymore</small>
+
+Test yourself
+========================================================
+type: mine
+
+<br>
+
+You can run this Shiny app yourself at:
+
+> [Fuel economy surveyor](https://d8a-sci.shinyapps.io/fuelsurvey)
+
+<pre>
+https://d8a-sci.shinyapps.io/fuelsurvey
+</pre>
+      
+Try it now! It's free.
+

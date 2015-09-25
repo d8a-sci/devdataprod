@@ -1,0 +1,8 @@
+name: fuelsurvey
+account: d8a-sci
+server: shinyapps.io
+bundleId: 272732
+url: https://d8a-sci.shinyapps.io/fuelsurvey
+when: 1443090294.48089
+asMultiple: FALSE
+asStatic: FALSE

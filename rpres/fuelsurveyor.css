@@ -1,0 +1,41 @@
+.section .reveal .state-background {
+	background	: white;
+	background	: #f8f5f0;
+}
+.section .reveal h1,
+.section .reveal h2,
+.section .reveal h3,
+.section .reveal p {
+	color		: black;
+	color		: #3e3f3a;
+	position	: relative;
+}
+
+
+.mine .reveal .state-background {
+	background	: #f8f5f0;
+} 
+.mine .reveal h1,
+.mine .reveal h2,
+.mine .reveal h3,
+.mine .reveal p {
+	color		: #3e3f3a;
+}
+
+
+.exclaim .reveal .state-background {
+	background	: black;
+} 
+.exclaim .reveal h1,
+.exclaim .reveal h2,
+.exclaim .reveal h3,
+.exclaim .reveal p {
+	color		: white;
+}
+
+
+.midcenter {
+    position		: fixed;
+    top			: 50%;
+    left		: 50%;
+}
